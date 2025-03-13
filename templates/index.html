@@ -1,0 +1,270 @@
+<!-- templates/index.html -->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Casino Signup Analytics</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/boxicons@2.0.7/css/boxicons.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.socket.io/4.5.4/socket.io.min.js"></script>
+</head>
+
+<body>
+    <div class="sidebar">
+        <div class="logo-details">
+            <i class='bx bx-chip'></i>
+            <span class="logo_name">Casino Analytics</span>
+        </div>
+        <ul class="nav-links">
+            <li class="active">
+                <a href="#">
+                    <i class='bx bx-grid-alt'></i>
+                    <span class="links_name">Dashboard</span>
+                </a>
+            </li>
+            <li>
+                <a href="#" id="controlLink">
+                    <i class='bx bx-play-circle'></i>
+                    <span class="links_name">Control</span>
+                </a>
+            </li>
+            <li>
+                <a href="#" id="historyLink">
+                    <i class='bx bx-history'></i>
+                    <span class="links_name">History</span>
+                </a>
+            </li>
+            <li>
+                <a href="#" id="settingsLink">
+                    <i class='bx bx-cog'></i>
+                    <span class="links_name">Settings</span>
+                </a>
+            </li>
+        </ul>
+    </div>
+
+    <section class="home-section">
+        <nav>
+            <div class="sidebar-button">
+                <i class='bx bx-menu sidebarBtn'></i>
+                <span class="dashboard">Dashboard</span>
+            </div>
+            <div class="status-indicator">
+                <span id="status-badge" class="badge bg-secondary">Checking status...</span>
+            </div>
+        </nav>
+
+        <div class="home-content">
+            <!-- Dashboard Section -->
+            <div class="section-content" id="dashboard-section">
+                <div class="overview-boxes">
+                    <div class="box">
+                        <div class="right-side">
+                            <div class="box-topic">Total Clicks</div>
+                            <div class="number" id="total-clicks">0</div>
+                            <div class="indicator">
+                                <i class='bx bx-up-arrow-alt'></i>
+                                <span class="text">Since tracking began</span>
+                            </div>
+                        </div>
+                        <i class='bx bx-mouse cart'></i>
+                    </div>
+                    <div class="box">
+                        <div class="right-side">
+                            <div class="box-topic">Unique Casinos</div>
+                            <div class="number" id="unique-casinos">0</div>
+                            <div class="indicator">
+                                <i class='bx bx-dice-6'></i>
+                                <span class="text">Different casinos clicked</span>
+                            </div>
+                        </div>
+                        <i class='bx bx-buildings cart two'></i>
+                    </div>
+                    <div class="box">
+                        <div class="right-side">
+                            <div class="box-topic">Most Clicked</div>
+                            <div class="number" id="most-clicked-name">None</div>
+                            <div class="indicator">
+                                <i class='bx bx-trophy'></i>
+                                <span class="text" id="most-clicked-count">0 clicks</span>
+                            </div>
+                        </div>
+                        <i class='bx bx-star cart three'></i>
+                    </div>
+                    <div class="box">
+                        <div class="right-side">
+                            <div class="box-topic">Last Click</div>
+                            <div class="number" id="last-clicked">None</div>
+                            <div class="indicator">
+                                <i class='bx bx-time'></i>
+                                <span class="text" id="last-clicked-time">Never</span>
+                            </div>
+                        </div>
+                        <i class='bx bx-history cart four'></i>
+                    </div>
+                </div>
+
+                <!-- In your dashboard section -->
+                <div class="row mb-4">
+                    <!-- Distribution Chart -->
+                    <div class="col-md-6">
+                        <div class="card">
+                            <div class="card-header">
+                                Casino Click Distribution
+                            </div>
+                            <div class="card-body" style="height: 300px;">
+                                <canvas id="clickDistributionChart"></canvas>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- History Chart -->
+                    <div class="col-md-6">
+                        <div class="card">
+                            <div class="card-header">
+                                Click History (Last 24 Hours)
+                            </div>
+                            <div class="card-body" style="height: 300px;">
+                                <canvas id="clickHistoryChart"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Control Section -->
+            <div class="section-content hidden" id="control-section">
+                <div class="control-panel">
+                    <h2>Automation Control</h2>
+                    <div class="control-buttons">
+                        <button id="start-button" class="btn btn-success btn-lg">
+                            <i class='bx bx-play'></i> Start Automation
+                        </button>
+                        <button id="stop-button" class="btn btn-danger btn-lg">
+                            <i class='bx bx-stop'></i> Stop Automation
+                        </button>
+                    </div>
+                    <div class="form-check mb-3">
+                        <input class="form-check-input" type="checkbox" id="continuous-mode">
+                        <label class="form-check-label" for="continuous-mode" id="continuous-mode-label">
+                            Continuous Mode (OFF)
+                        </label>
+                    </div>
+                    <div class="status-panel mt-4">
+                        <h4>Current Status:</h4>
+                        <div id="automation-status" class="alert alert-info">
+                            Checking status...
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- History Section -->
+            <div class="section-content hidden" id="history-section">
+                <div class="card">
+                    <div class="card-header">
+                        <h5>Casino Click Summary</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th>Casino</th>
+                                        <th>Click Count</th>
+                                        <th>Affiliate Name</th>
+                                        <th>Last Interaction</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="casino-summary-table">
+                                    <!-- Summary data will be inserted here -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Image Preview Modal -->
+                <div class="modal fade" id="imagePreviewModal" tabindex="-1" aria-labelledby="imagePreviewModalLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-lg">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="imagePreviewModalLabel">Casino Screenshot Preview</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body text-center">
+                                <img id="modalImage" src="" alt="Casino Screenshot" class="img-fluid">
+                                <div class="mt-3">
+                                    <h6 id="modalCasinoName" class="mb-2"></h6>
+                                    <p id="modalTimestamp" class="text-muted"></p>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+                <!-- Tooltip container for detailed history -->
+                <div id="history-tooltip" class="history-tooltip">
+                    <div class="history-tooltip-header">
+                        <h6 id="history-tooltip-title">Casino History</h6>
+                    </div>
+                    <!-- Add this container for the screenshot -->
+                    <div id="history-screenshot-container" style="padding: 10px; text-align: center;">
+                        <!-- Screenshot will be loaded here -->
+                    </div>
+                    <div class="history-tooltip-body">
+                        <div class="table-responsive">
+                            <table class="table table-sm">
+                                <thead>
+                                    <tr>
+                                        <th>#</th>
+                                        <th>Date</th>
+                                        <th>Time</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="history-detail-table">
+                                    <!-- Detailed history will be inserted here -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+
+            <!-- Settings Section -->
+            <div class="section-content hidden" id="settings-section">
+                <div class="settings-panel">
+                    <h2>Settings</h2>
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">Data Management</h5>
+                            <p class="card-text">Reset all statistics and start fresh.</p>
+                            <button id="reset-stats-button" class="btn btn-warning">
+                                <i class='bx bx-reset'></i> Reset Statistics
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Add these before closing </body> tag -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+</body>
+
+</html>

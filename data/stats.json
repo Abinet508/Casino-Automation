@@ -1,0 +1,99 @@
+{
+  "clicks": {
+    "Crystal Roll Casino": 1,
+    "slots-lair": 1,
+    "Letsjackpot B2C NL": 1,
+    "MrJones": 1,
+    "boomsbetcruks": 1,
+    "Betspino": 1,
+    "spinpanda": 1,
+    "Slotuna": 1,
+    "Casino Night \u27a4 Avis + Bonus de 300\u20ac": 1,
+    "Betovo": 1,
+    "SlotWish": 1,
+    "Incognito Casino": 1,
+    "ibet &#8211; CP &#8211; SE &#8211; Casino": 1
+  },
+  "history": [
+    {
+      "affiliate": "onlinecasinosspelen",
+      "casino": "Crystal Roll Casino",
+      "timestamp": "2025-03-10 19:33:34"
+    },
+    {
+      "affiliate": "casinojager",
+      "casino": "slots-lair",
+      "timestamp": "2025-03-10 19:34:03"
+    },
+    {
+      "affiliate": "topcasinosites",
+      "casino": "Letsjackpot B2C NL",
+      "timestamp": "2025-03-10 19:34:57"
+    },
+    {
+      "affiliate": "newhorrizon",
+      "casino": "MrJones",
+      "timestamp": "2025-03-10 19:35:02"
+    },
+    {
+      "affiliate": "1337games",
+      "casino": "boomsbetcruks",
+      "timestamp": "2025-03-10 19:35:28"
+    },
+    {
+      "affiliate": "unlockedcasinos",
+      "casino": "Betspino",
+      "timestamp": "2025-03-10 19:35:37"
+    },
+    {
+      "affiliate": "superbigwin",
+      "casino": "spinpanda",
+      "timestamp": "2025-03-10 19:37:35"
+    },
+    {
+      "affiliate": "lucky_7",
+      "casino": "Slotuna",
+      "timestamp": "2025-03-10 19:37:56"
+    },
+    {
+      "affiliate": "joueraucasino",
+      "casino": "Casino Night \u27a4 Avis + Bonus de 300\u20ac",
+      "timestamp": "2025-03-10 19:40:12"
+    },
+    {
+      "affiliate": "internationalcasino",
+      "casino": "Betovo",
+      "timestamp": "2025-03-10 19:42:08"
+    },
+    {
+      "affiliate": "topcasinoslistings",
+      "casino": "SlotWish",
+      "timestamp": "2025-03-10 19:42:28"
+    },
+    {
+      "affiliate": "internationalcasinos",
+      "casino": "Incognito Casino",
+      "timestamp": "2025-03-10 19:42:31"
+    },
+    {
+      "affiliate": "yournextbigwin",
+      "casino": "ibet &#8211; CP &#8211; SE &#8211; Casino",
+      "timestamp": "2025-03-10 19:43:05"
+    }
+  ],
+  "Screenshot": {
+    "Crystal Roll Casino": "static\\Images\\Crystal Roll Casino.png",
+    "slots-lair": "static\\Images\\slots-lair.png",
+    "Letsjackpot B2C NL": "static\\Images\\Letsjackpot B2C NL.png",
+    "MrJones": "static\\Images\\MrJones.png",
+    "boomsbetcruks": "static\\Images\\boomsbetcruks.png",
+    "Betspino": "static\\Images\\Betspino.png",
+    "spinpanda": "static\\Images\\spinpanda.png",
+    "Slotuna": "static\\Images\\Slotuna.png",
+    "Casino Night \u27a4 Avis + Bonus de 300\u20ac": "static\\Images\\Casino Night \u27a4 Avis + Bonus de 300\u20ac.png",
+    "Betovo": "static\\Images\\Betovo.png",
+    "SlotWish": "static\\Images\\SlotWish.png",
+    "Incognito Casino": "static\\Images\\Incognito Casino.png",
+    "ibet &#8211; CP &#8211; SE &#8211; Casino": "static\\Images\\ibet &#8211; CP &#8211; SE &#8211; Casino.png"
+  }
+}
